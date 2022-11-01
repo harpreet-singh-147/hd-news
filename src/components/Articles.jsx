@@ -1,14 +1,24 @@
-import { fetchAllArticles } from "../api";
+import { fetchAllArticles, fetchAllTopics } from "../api";
 import { useEffect, useState } from "react";
+import Topics from "./Topics";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
+  const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
     fetchAllArticles()
       .then(({ articles: allArticles }) => {
         setArticles(allArticles);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(true);
+      });
+    fetchAllTopics()
+      .then(({ topics }) => {
+        setTopics(topics);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -21,6 +31,7 @@ const Articles = () => {
         <div className="container">Loading...</div>
       ) : (
         <div className="container">
+          <Topics topics={topics} />
           {articles.map(
             ({
               author,
