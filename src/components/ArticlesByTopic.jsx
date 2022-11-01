@@ -46,15 +46,14 @@ const ArticlesByTopic = () => {
               return (
                 <div className="card">
                   <h1>{title}</h1>
-                  <p>{body}</p>
+
                   <p>
                     Written By: <b>{author}</b>
                   </p>
-                  <p>{topic}</p>
+                  <p>Topic: {topic}</p>
                   <p>{created_at}</p>
-                  <p>{votes} Votes</p>
-                  <p>{comment_count} Comments</p>
-                  <Link to={`/articles/${article_id}`}>View Details</Link>
+
+                  <Link to={`/articles/${article_id}`}>View article</Link>
                 </div>
               );
             }
