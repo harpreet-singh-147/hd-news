@@ -9,3 +9,9 @@ export function fetchAllArticles() {
     return res.data;
   });
 }
+
+export function fetchAllTopics() {
+  return articlesApi.get(`/topics`).then((res) => {
+    return res.data;
+  });
+}
