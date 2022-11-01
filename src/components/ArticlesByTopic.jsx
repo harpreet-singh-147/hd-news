@@ -52,8 +52,8 @@ const ArticlesByTopic = () => {
                   </p>
                   <p>{topic}</p>
                   <p>{created_at}</p>
-                  <p>{votes}</p>
-                  <p>{comment_count}</p>
+                  <p>{votes} Votes</p>
+                  <p>{comment_count} Comments</p>
                   <Link to={`/articles/${article_id}`}>View Details</Link>
                 </div>
               );
