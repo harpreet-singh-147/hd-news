@@ -15,3 +15,9 @@ export function fetchAllTopics() {
     return res.data;
   });
 }
+
+export function fetchSingleArticle(article_id) {
+  return articlesApi.get(`/articles/${article_id}`).then((res) => {
+    return res.data;
+  });
+}

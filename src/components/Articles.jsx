@@ -1,6 +1,7 @@
 import { fetchAllArticles, fetchAllTopics } from "../api";
 import { useEffect, useState } from "react";
 import Topics from "./Topics";
+import { Link } from "react-router-dom";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -41,18 +42,19 @@ const Articles = () => {
               created_at,
               votes,
               comment_count,
+              article_id,
             }) => {
               return (
                 <div className="card">
                   <h1>{title}</h1>
-                  <p>{body}</p>
+
                   <p>
                     Written by: <b>{author}</b>
                   </p>
                   <p>Topic: {topic}</p>
                   <p>Created: {created_at}</p>
-                  <p>{votes} Votes</p>
-                  <p>{comment_count} Comments</p>
+
+                  <Link to={`/articles/${article_id}`}>View article</Link>
                 </div>
               );
             }
