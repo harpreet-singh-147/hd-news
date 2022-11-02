@@ -76,11 +76,11 @@ ul {
   padding: 0.5em;
 }
 
-.article-container {
+/* .article-container {
   border: 2px solid black;
   padding: 1em;
 
-}
+} */
 
 /* styling arrows */
 
@@ -100,4 +100,12 @@ ul {
 .down {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
+}
+
+/* comment styling */
+.comment-container {
+  margin: 2em 0;
+}
+.comments-title {
+  margin: 1em 0;
 }
