@@ -6,17 +6,37 @@ import Articles from "./components/Articles";
 import Header from "./components/Header";
 import ArticlesByTopic from "./components/ArticlesByTopic";
 import Article from "./components/Article";
+import { useState } from "react";
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
   return (
     <BrowserRouter>
       <Nav />
       <Header />
       <Routes>
-        <Route path="/" element={<Welcome />} />
+        <Route
+          path="/"
+          element={
+            <Welcome
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+            />
+          }
+        />
         <Route path="/articles" element={<Articles />} />
+
+        <Route
+          path="/articles/:article_id"
+          element={
+            <Article
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+            />
+          }
+        />
         <Route path="/articles/topics/:topic" element={<ArticlesByTopic />} />
-        <Route path="/articles/:article_id" element={<Article />} />
       </Routes>
     </BrowserRouter>
   );

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { updateVotes, fetchCommentsByArticleId } from "../api";
 import Comments from "./Comments";
 
-const Article = () => {
+const Article = ({ loggedInUser }) => {
   const [singleArticle, setSingleArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,23 +62,28 @@ const Article = () => {
             <p>{singleArticle.created_at}</p>
 
             <p>{singleArticle.comment_count} Comments</p>
-            <p>up vote article</p>
-            <button
-              onClick={() => {
-                voteButtonHandler(1);
-              }}
-            >
-              <i className="arrow up"></i>
-            </button>
-            <p>{singleArticle.votes} votes</p>
-            <button
-              onClick={() => {
-                voteButtonHandler(-1);
-              }}
-            >
-              <i className="arrow down"></i>
-            </button>
-            <p>downvote vote article</p>
+            {loggedInUser ? (
+              <div>
+                {" "}
+                <p>up vote article</p>
+                <button
+                  onClick={() => {
+                    voteButtonHandler(1);
+                  }}
+                >
+                  <i className="arrow up"></i>
+                </button>
+                <p>{singleArticle.votes} votes</p>
+                <button
+                  onClick={() => {
+                    voteButtonHandler(-1);
+                  }}
+                >
+                  <i className="arrow down"></i>
+                </button>
+                <p>downvote vote article</p>
+              </div>
+            ) : null}
           </div>
 
           <Comments comments={comments} />
