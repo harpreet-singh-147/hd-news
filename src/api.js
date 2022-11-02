@@ -38,3 +38,9 @@ export function fetchCommentsByArticleId(article_id) {
     return res.data;
   });
 }
+
+export function fetchUsers() {
+  return articlesApi.get(`/users`).then((res) => {
+    return res.data;
+  });
+}
