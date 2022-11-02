@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { fetchSingleArticle } from "../api";
 import { Link } from "react-router-dom";
 import { updateVotes, fetchCommentsByArticleId } from "../api";
+import Comments from "./Comments";
 
 const Article = () => {
   const [singleArticle, setSingleArticle] = useState({});
@@ -79,6 +80,8 @@ const Article = () => {
             </button>
             <p>downvote vote article</p>
           </div>
+
+          <Comments comments={comments} />
         </>
       )}
     </div>
