@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchSingleArticle } from "../api";
 import { Link } from "react-router-dom";
-import { updateVotes } from "../api";
+import { updateVotes, fetchCommentsByArticleId } from "../api";
 
 const Article = () => {
   const [singleArticle, setSingleArticle] = useState({});
+  const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { article_id } = useParams();
 
@@ -19,6 +20,11 @@ const Article = () => {
       .catch((err) => {
         setIsLoading(true);
       });
+    setIsLoading(true);
+    fetchCommentsByArticleId(article_id).then(({ articleComments }) => {
+      setComments(articleComments);
+      setIsLoading(false);
+    });
   }, []);
 
   const voteButtonHandler = (vote) => {

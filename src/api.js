@@ -32,3 +32,9 @@ export function updateVotes(votes, article_id) {
       throw new Error(err);
     });
 }
+
+export function fetchCommentsByArticleId(article_id) {
+  return articlesApi.get(`/articles/${article_id}/comments`).then((res) => {
+    return res.data;
+  });
+}
