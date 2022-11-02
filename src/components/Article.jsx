@@ -20,6 +20,8 @@ const Article = () => {
       });
   }, []);
 
+  const voteButtonHandler = () => {};
+
   return (
     <div className="container">
       {isLoading ? (
@@ -38,6 +40,23 @@ const Article = () => {
           <p>{singleArticle.created_at}</p>
 
           <p>{singleArticle.comment_count} Comments</p>
+          <p>up vote article</p>
+          <button
+            onClick={() => {
+              voteButtonHandler();
+            }}
+          >
+            <i className="arrow up"></i>
+          </button>
+          <p>{singleArticle.votes} votes</p>
+          <button
+            onClick={() => {
+              voteButtonHandler();
+            }}
+          >
+            <i className="arrow down"></i>
+          </button>
+          <p>downvote vote article</p>
         </>
       )}
     </div>
