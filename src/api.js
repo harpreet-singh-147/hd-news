@@ -21,3 +21,14 @@ export function fetchSingleArticle(article_id) {
     return res.data;
   });
 }
+
+export function updateVotes(votes, article_id) {
+  return articlesApi
+    .patch(`/articles/${article_id}`, { inc_votes: votes })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      throw new Error(err);
+    });
+}
