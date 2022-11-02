@@ -11,14 +11,17 @@ const Welcome = () => {
   }, []);
   return (
     <div className="container">
-      <div>
-        {users.map(({ username, name, avatar_url }) => (
-          <div>
-            <img src={avatar_url} />
-            <h3>{name}</h3>
-            <p>{username}</p>
-          </div>
-        ))}
+      <h2 className="text-center">Select your user</h2>
+      <div className="users-wrapper">
+        {users.map(({ username, name, avatar_url }, index) => {
+          return (
+            <div className="users-container">
+              <img src={avatar_url} className="avatar-img" />
+              <h3>{name}</h3>
+              <p>Username: {username}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
