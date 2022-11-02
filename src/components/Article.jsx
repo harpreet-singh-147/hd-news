@@ -45,32 +45,34 @@ const Article = () => {
           <Link to="/articles">
             <button>Back to all articles</button>
           </Link>
-          <h1>{singleArticle.title}</h1>
-          <p>{singleArticle.body}</p>
-          <p>
-            Written By: <b>{singleArticle.author}</b>
-          </p>
-          <p>Topic: {singleArticle.topic}</p>
-          <p>{singleArticle.created_at}</p>
+          <div className="card">
+            <h1>{singleArticle.title}</h1>
+            <p>{singleArticle.body}</p>
+            <p>
+              Written By: <b>{singleArticle.author}</b>
+            </p>
+            <p>Topic: {singleArticle.topic}</p>
+            <p>{singleArticle.created_at}</p>
 
-          <p>{singleArticle.comment_count} Comments</p>
-          <p>up vote article</p>
-          <button
-            onClick={() => {
-              voteButtonHandler(1);
-            }}
-          >
-            <i className="arrow up"></i>
-          </button>
-          <p>{singleArticle.votes} votes</p>
-          <button
-            onClick={() => {
-              voteButtonHandler(-1);
-            }}
-          >
-            <i className="arrow down"></i>
-          </button>
-          <p>downvote vote article</p>
+            <p>{singleArticle.comment_count} Comments</p>
+            <p>up vote article</p>
+            <button
+              onClick={() => {
+                voteButtonHandler(1);
+              }}
+            >
+              <i className="arrow up"></i>
+            </button>
+            <p>{singleArticle.votes} votes</p>
+            <button
+              onClick={() => {
+                voteButtonHandler(-1);
+              }}
+            >
+              <i className="arrow down"></i>
+            </button>
+            <p>downvote vote article</p>
+          </div>
         </>
       )}
     </div>
