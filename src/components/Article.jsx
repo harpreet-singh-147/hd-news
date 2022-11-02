@@ -86,7 +86,7 @@ const Article = ({ loggedInUser }) => {
             ) : null}
           </div>
 
-          <Comments comments={comments} />
+          <Comments comments={comments} loggedInUser={loggedInUser} />
         </>
       )}
     </div>
