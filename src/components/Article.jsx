@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchSingleArticle } from "../api";
 import { Link } from "react-router-dom";
+import { updateVotes } from "../api";
 
 const Article = () => {
   const [singleArticle, setSingleArticle] = useState({});
@@ -20,7 +21,20 @@ const Article = () => {
       });
   }, []);
 
-  const voteButtonHandler = () => {};
+  const voteButtonHandler = (vote) => {
+    setSingleArticle({
+      ...singleArticle,
+      votes: singleArticle.votes + vote,
+    });
+
+    updateVotes(vote, singleArticle.article_id)
+      .then(({ updatedArticle }) => {
+        setSingleArticle({ ...singleArticle, ...updatedArticle });
+      })
+      .catch((err) => {
+        alert("something went wrong");
+      });
+  };
 
   return (
     <div className="container">
@@ -43,7 +57,7 @@ const Article = () => {
           <p>up vote article</p>
           <button
             onClick={() => {
-              voteButtonHandler();
+              voteButtonHandler(1);
             }}
           >
             <i className="arrow up"></i>
@@ -51,7 +65,7 @@ const Article = () => {
           <p>{singleArticle.votes} votes</p>
           <button
             onClick={() => {
-              voteButtonHandler();
+              voteButtonHandler(-1);
             }}
           >
             <i className="arrow down"></i>
