@@ -44,3 +44,11 @@ export function fetchUsers() {
     return res.data;
   });
 }
+
+export function postComment(article_id, username, body) {
+  return articlesApi
+    .post(`/articles/${article_id}/comments`, { username, body })
+    .then((res) => {
+      return res.data;
+    });
+}

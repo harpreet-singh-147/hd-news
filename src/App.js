@@ -13,7 +13,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Nav />
+      <Nav loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
       <Header />
       <Routes>
         <Route

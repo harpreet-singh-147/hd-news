@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchUsers } from "../api";
+import { Link } from "react-router-dom";
 
 const Welcome = ({ setLoggedInUser }) => {
   const [users, setUsers] = useState([]);
@@ -19,16 +20,18 @@ const Welcome = ({ setLoggedInUser }) => {
       <div className="users-wrapper">
         {users.map(({ username, name, avatar_url }, index) => {
           return (
-            <div
-              className="users-container"
-              onClick={() => {
-                handleClick(index);
-              }}
-            >
-              <img src={avatar_url} className="avatar-img" />
-              <h3>{name}</h3>
-              <p>Username: {username}</p>
-            </div>
+            <Link to="/articles">
+              <div
+                className="users-container"
+                onClick={() => {
+                  handleClick(index);
+                }}
+              >
+                <img src={avatar_url} className="avatar-img" />
+                <h3>{name}</h3>
+                <p>Username: {username}</p>
+              </div>
+            </Link>
           );
         })}
       </div>

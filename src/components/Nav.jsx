@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Nav = () => {
+const Nav = ({ loggedInUser, setLoggedInUser }) => {
   return (
     <nav className="navbar">
       <div className="container">
@@ -14,6 +14,23 @@ const Nav = () => {
           <li>
             <Link to="/articles">Articles</Link>
           </li>
+          {loggedInUser ? (
+            <li>
+              <h3 className="nav">Hello {loggedInUser.username}</h3>
+            </li>
+          ) : null}
+          {loggedInUser ? (
+            <li>
+              <Link
+                to="/"
+                onClick={() => {
+                  setLoggedInUser(null);
+                }}
+              >
+                Sign out
+              </Link>
+            </li>
+          ) : null}
         </ul>
       </div>
     </nav>

@@ -59,7 +59,7 @@ const Article = ({ loggedInUser }) => {
               Written By: <b>{singleArticle.author}</b>
             </p>
             <p>Topic: {singleArticle.topic}</p>
-            <p>{singleArticle.created_at}</p>
+            <p>Posted on: {singleArticle.created_at}</p>
 
             <p>{singleArticle.comment_count} Comments</p>
             {loggedInUser ? (
@@ -86,7 +86,7 @@ const Article = ({ loggedInUser }) => {
             ) : null}
           </div>
 
-          <Comments comments={comments} loggedInUser={loggedInUser} />
+          <Comments loggedInUser={loggedInUser} />
         </>
       )}
     </div>
