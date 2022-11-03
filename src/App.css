@@ -109,3 +109,32 @@ ul {
 .comments-title {
   margin: 1em 0;
 }
+
+/* Users Section Styling */
+
+.users-wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.users-container {
+  width: 320px;
+  border: 1px solid black;
+  padding: 2em;
+  margin: 1em 0;
+  /* justify-self: center; */
+  text-align: center;
+
+}
+
+.avatar-img {
+  border-radius: 50%;
+  max-width: 100%;
+  width: 270px;
+  height: 270px;
+}
+
+.text-center {
+  text-align: center;
+}
