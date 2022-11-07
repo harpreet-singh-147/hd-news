@@ -7,6 +7,8 @@ const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortBy, setSortBy] = useState("");
+  const [ordering, setOrdering] = useState("");
   useEffect(() => {
     setIsLoading(true);
     fetchAllArticles()
@@ -33,6 +35,22 @@ const Articles = () => {
       ) : (
         <div className="container">
           <Topics topics={topics} />
+          <div>
+            <label className="form-label text-center">Sort By</label>
+
+            <select className="form-control" defaultValue={sortBy}>
+              <option value="created_at">Created at</option>
+              <option value="comment_count">Comment count</option>
+              <option value="votes">Votes count</option>
+            </select>
+          </div>
+          <div>
+            <label className="form-label text-center">Order By</label>
+            <select className="form-control" defaultValue={ordering}>
+              <option value="ASC">ASC</option>
+              <option value="DESC">DESC</option>
+            </select>
+          </div>
           {articles.map(
             ({
               author,
