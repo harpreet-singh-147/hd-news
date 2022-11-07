@@ -70,6 +70,7 @@ const Articles = () => {
               defaultValue={sortBy}
               onChange={(e) => handleChange(e)}
             >
+              <option value="">Choose option</option>
               <option value="created_at">Date created</option>
               <option value="comment_count">Comment count</option>
               <option value="votes">Votes</option>
@@ -82,10 +83,9 @@ const Articles = () => {
               defaultValue={ordering}
               onChange={(e) => handleOrdering(e)}
             >
-              <option
-                value=""
-                selected={ordering === "" ? "selected" : ""}
-              ></option>
+              <option value="" selected={ordering === "" ? "selected" : ""}>
+                Choose option
+              </option>
               <option value="ASC">Ascending</option>
               <option value="DESC">Descending</option>
             </select>
