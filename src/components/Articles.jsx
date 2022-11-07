@@ -1,4 +1,8 @@
-import { fetchAllArticles, fetchAllTopics } from "../api";
+import {
+  fetchAllArticles,
+  fetchAllTopics,
+  fetchAllArticlesByType,
+} from "../api";
 import { useEffect, useState } from "react";
 import Topics from "./Topics";
 import { Link } from "react-router-dom";
@@ -28,6 +32,29 @@ const Articles = () => {
         setIsLoading(true);
       });
   }, []);
+
+  const handleChange = (e) => {
+    setSortBy(e.target.value);
+    if (e.target.value !== "") {
+      fetchAllArticlesByType(e.target.value, ordering).then(
+        ({ articles: allArticles }) => {
+          setArticles(allArticles);
+          setOrdering("");
+        }
+      );
+    }
+  };
+
+  const handleOrdering = (e) => {
+    setOrdering(e.target.value);
+    if (e.target.value !== "" && sortBy !== "") {
+      fetchAllArticlesByType(sortBy, e.target.value).then(
+        ({ articles: allArticles }) => {
+          setArticles(allArticles);
+        }
+      );
+    }
+  };
   return (
     <>
       {isLoading ? (
@@ -38,17 +65,29 @@ const Articles = () => {
           <div>
             <label className="form-label text-center">Sort By</label>
 
-            <select className="form-control" defaultValue={sortBy}>
-              <option value="created_at">Created at</option>
+            <select
+              className="form-control"
+              defaultValue={sortBy}
+              onChange={(e) => handleChange(e)}
+            >
+              <option value="created_at">Date created</option>
               <option value="comment_count">Comment count</option>
-              <option value="votes">Votes count</option>
+              <option value="votes">Votes</option>
             </select>
           </div>
           <div>
             <label className="form-label text-center">Order By</label>
-            <select className="form-control" defaultValue={ordering}>
-              <option value="ASC">ASC</option>
-              <option value="DESC">DESC</option>
+            <select
+              className="form-control"
+              defaultValue={ordering}
+              onChange={(e) => handleOrdering(e)}
+            >
+              <option
+                value=""
+                selected={ordering === "" ? "selected" : ""}
+              ></option>
+              <option value="ASC">Ascending</option>
+              <option value="DESC">Descending</option>
             </select>
           </div>
           {articles.map(
