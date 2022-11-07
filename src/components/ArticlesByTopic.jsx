@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchAllArticles } from "../api";
+import { fetchAllArticlesByTopic } from "../api";
 import { Link } from "react-router-dom";
 
 const ArticlesByTopic = () => {
@@ -9,19 +9,17 @@ const ArticlesByTopic = () => {
   const { topic } = useParams();
 
   useEffect(() => {
-    fetchAllArticles()
+    setIsLoading(true);
+    fetchAllArticlesByTopic(topic)
       .then(({ articles: allArticles }) => {
-        setFilteredArticles(
-          allArticles.filter((article) => {
-            return article.topic === topic;
-          })
-        );
+        setFilteredArticles(allArticles);
+
         setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(true);
       });
-  });
+  }, []);
 
   return (
     <>
