@@ -1,27 +1,51 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchAllArticles } from "../api";
+import { fetchAllArticlesByTopic, fetchAllArticlesByType } from "../api";
 import { Link } from "react-router-dom";
 
 const ArticlesByTopic = () => {
   const [filteredArticles, setFilteredArticles] = useState([]);
+  const [sortBy, setSortBy] = useState("");
+  const [ordering, setOrdering] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { topic } = useParams();
 
   useEffect(() => {
-    fetchAllArticles()
+    setIsLoading(true);
+    fetchAllArticlesByTopic(topic)
       .then(({ articles: allArticles }) => {
-        setFilteredArticles(
-          allArticles.filter((article) => {
-            return article.topic === topic;
-          })
-        );
+        setFilteredArticles(allArticles);
+
         setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(true);
       });
-  });
+  }, []);
+
+  const handleChange = (e) => {
+    setSortBy(e.target.value);
+    //On Changing Run the Filter(API Request)
+    if (e.target.value !== "") {
+      fetchAllArticlesByType(e.target.value, ordering, topic).then(
+        ({ articles: allArticles }) => {
+          setFilteredArticles(() => allArticles);
+          setOrdering("");
+        }
+      );
+    }
+  };
+
+  const handleOrdering = (e) => {
+    setOrdering(e.target.value);
+    if (e.target.value !== "" && sortBy !== "") {
+      fetchAllArticlesByType(sortBy, e.target.value, topic).then(
+        ({ articles: allArticles }) => {
+          setFilteredArticles(() => allArticles);
+        }
+      );
+    }
+  };
 
   return (
     <>
@@ -32,6 +56,37 @@ const ArticlesByTopic = () => {
           <Link to="/articles">
             <button>Back to all articles</button>
           </Link>
+          <div>
+            <h1 className="text-center">{topic.toUpperCase()}</h1>
+          </div>
+          <div>
+            <label className="form-label text-center">Sort By</label>
+
+            <select
+              className="form-control"
+              defaultValue={sortBy}
+              onChange={(e) => handleChange(e)}
+            >
+              <option value="">Choose option</option>
+              <option value="created_at">Date created</option>
+              <option value="comment_count">Comment count</option>
+              <option value="votes">Votes</option>
+            </select>
+          </div>
+          <div>
+            <label className="form-label text-center">Order By</label>
+            <select
+              className="form-control"
+              defaultValue={ordering}
+              onChange={(e) => handleOrdering(e)}
+            >
+              <option value="" selected={ordering === "" ? "selected" : ""}>
+                Choose option
+              </option>
+              <option value="ASC">Ascending</option>
+              <option value="DESC">Descending</option>
+            </select>
+          </div>
           {filteredArticles.map(
             ({
               author,
