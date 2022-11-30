@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const articlesApi = axios.create({
-  baseURL: `https://hdnews.herokuapp.com/api`,
+  baseURL: `https://hd-news-be.cyclic.app/api`,
 });
 
 export function fetchAllArticles() {
@@ -70,4 +70,10 @@ export function postComment(article_id, username, body) {
     .then((res) => {
       return res.data;
     });
+}
+
+export function deleteComment(comment_id) {
+  return articlesApi.delete(`/comments/${comment_id}`).then((res) => {
+    return res.data;
+  });
 }
