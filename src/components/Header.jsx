@@ -1,9 +1,7 @@
 const Header = () => {
   return (
-    <header className="header">
-      <div className="container">
-        <h1>NC News Header</h1>
-      </div>
+    <header className="container">
+      <h1 className="text-center text-bold">Welcome to HD NEWS</h1>
     </header>
   );
 };
