@@ -111,14 +111,15 @@ const ArticlesByTopic = () => {
               article_id,
             }) => {
               return (
-                <div className="card">
+                <div key={article_id} className="card">
                   <h1>{title}</h1>
 
                   <p>
                     Written By: <b>{author}</b>
                   </p>
-                  <p>Topic: {topic}</p>
                   <p>{created_at}</p>
+                  <p>Votes: {votes}</p>
+                  <p>Comments: {comment_count}</p>
 
                   <Link to={`/articles/${article_id}`}>View article</Link>
                 </div>

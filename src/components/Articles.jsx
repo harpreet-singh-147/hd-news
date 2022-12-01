@@ -102,7 +102,7 @@ const Articles = () => {
               article_id,
             }) => {
               return (
-                <div className="card">
+                <div className="card" key={article_id}>
                   <h1>{title}</h1>
 
                   <p>
