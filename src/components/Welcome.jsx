@@ -4,16 +4,21 @@ import { Link } from "react-router-dom";
 
 const Welcome = ({ setLoggedInUser }) => {
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchUsers().then(({ users }) => {
       setUsers(users);
+      setIsLoading(false);
     });
   }, []);
 
   const handleClick = (i) => {
     setLoggedInUser(users[i]);
   };
+
+  if (isLoading) return <p className="container">Loading...</p>;
   return (
     <div className="container">
       <h2 className="text-center">Select your user</h2>
