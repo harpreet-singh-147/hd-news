@@ -61,7 +61,7 @@ const Articles = () => {
   return (
     <div className="container">
       <Topics topics={topics} />
-      <div className="mt-4 d-flex justify-content-center">
+      <div className="mt-4 d-flex justify-content-center ">
         <div>
           <label className="form-label text-center">Sort By</label>
 

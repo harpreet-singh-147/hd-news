@@ -4,6 +4,7 @@ import { fetchAllArticlesByTopic, fetchAllArticlesByType } from "../utils/api";
 import { Link } from "react-router-dom";
 import Error from "./Error";
 import Loading from "./Loading";
+import formatDate, { displayDate } from "../utils/formatDate";
 
 const ArticlesByTopic = () => {
   const [filteredArticles, setFilteredArticles] = useState([]);
@@ -109,7 +110,7 @@ const ArticlesByTopic = () => {
               <p>
                 Written By: <b>{author}</b>
               </p>
-              <p>{created_at}</p>
+              <p>{displayDate(created_at)}</p>
               <p>Votes: {votes}</p>
               <p>Comments: {comment_count}</p>
 

@@ -3,7 +3,8 @@ import { fetchUsers } from "../utils/api";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 
-const Welcome = ({ setLoggedInUser }) => {
+const Welcome = ({ loggedInUser, setLoggedInUser }) => {
+  console.log(loggedInUser);
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,9 +24,11 @@ const Welcome = ({ setLoggedInUser }) => {
   return (
     <div className="container">
       <h1 className="text-center text-light">Select your user</h1>
-      <Link to="/articles" className="text-center-links">
-        <h2>Or continue as guest</h2>
-      </Link>
+      {!loggedInUser ? (
+        <Link to="/articles" className="text-center-links">
+          <h2>Or continue as guest</h2>
+        </Link>
+      ) : null}
       <div className="users-wrapper">
         {users.map(({ username, name, avatar_url }, index) => {
           return (
