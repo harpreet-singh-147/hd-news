@@ -4,11 +4,13 @@ import { fetchSingleArticle } from "../api";
 import { Link } from "react-router-dom";
 import { updateVotes, fetchCommentsByArticleId } from "../api";
 import Comments from "./Comments";
+import Error from "./Error";
 
 const Article = ({ loggedInUser }) => {
   const [singleArticle, setSingleArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -17,10 +19,20 @@ const Article = ({ loggedInUser }) => {
       .then(({ article }) => {
         setSingleArticle(article);
         setIsLoading(false);
+        setError(null);
       })
-      .catch((err) => {
-        setIsLoading(true);
-      });
+      .catch(
+        ({
+          response: {
+            data: { msg },
+            status,
+          },
+        }) => {
+          // console.log(msg, status, "<<<<<Errrrrr");
+          setError({ msg, status });
+          setIsLoading(true);
+        }
+      );
     setIsLoading(true);
     fetchCommentsByArticleId(article_id).then(({ articleComments }) => {
       setComments(articleComments);
@@ -42,6 +54,8 @@ const Article = ({ loggedInUser }) => {
         alert("something went wrong");
       });
   };
+
+  if (error) return <Error error={error} />;
 
   return (
     <div className="container">

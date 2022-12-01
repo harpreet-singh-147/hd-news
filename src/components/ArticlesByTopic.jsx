@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchAllArticlesByTopic, fetchAllArticlesByType } from "../api";
 import { Link } from "react-router-dom";
+import Error from "./Error";
 
 const ArticlesByTopic = () => {
   const [filteredArticles, setFilteredArticles] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const [ordering, setOrdering] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { topic } = useParams();
 
   useEffect(() => {
@@ -15,12 +17,20 @@ const ArticlesByTopic = () => {
     fetchAllArticlesByTopic(topic)
       .then(({ articles: allArticles }) => {
         setFilteredArticles(allArticles);
-
         setIsLoading(false);
+        setError(null);
       })
-      .catch((err) => {
-        setIsLoading(true);
-      });
+      .catch(
+        ({
+          response: {
+            data: { msg },
+            status,
+          },
+        }) => {
+          setError({ msg, status });
+          setIsLoading(false);
+        }
+      );
   }, []);
 
   const handleChange = (e) => {
@@ -46,6 +56,8 @@ const ArticlesByTopic = () => {
       );
     }
   };
+
+  if (error) return <Error error={error} />;
 
   return (
     <>

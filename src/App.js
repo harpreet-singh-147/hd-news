@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import ArticlesByTopic from "./components/ArticlesByTopic";
 import Article from "./components/Article";
 import { useState } from "react";
+import Error from "./components/Error";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -37,6 +38,7 @@ function App() {
           }
         />
         <Route path="/articles/topics/:topic" element={<ArticlesByTopic />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );
