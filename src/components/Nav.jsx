@@ -46,7 +46,7 @@ const Nav = ({ loggedInUser, setLoggedInUser }) => {
           <div class="nav-header">
             <div class="nav-title">
               <Link className="logo-header" to="/">
-                NC News
+                HD News
               </Link>
             </div>
           </div>
@@ -59,11 +59,10 @@ const Nav = ({ loggedInUser, setLoggedInUser }) => {
           </div>
 
           <div class="nav-links">
-            <Link to="/">Home</Link>
             <Link to="/articles">Articles</Link>
             {loggedInUser ? (
               <>
-                <a>Hello {loggedInUser.username}</a>
+                <a>Hello {loggedInUser.name.split(" ")[0]}</a>
                 <Link
                   to="/"
                   onClick={() => {

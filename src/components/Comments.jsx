@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchCommentsByArticleId, postComment, deleteComment } from "../api";
+import {
+  fetchCommentsByArticleId,
+  postComment,
+  deleteComment,
+} from "../utils/api";
+import { displayDate } from "../utils/formatDate";
+import Loading from "./Loading";
 
 const Comments = ({ loggedInUser }) => {
   const [commentInput, setCommentInput] = useState("");
@@ -60,21 +66,26 @@ const Comments = ({ loggedInUser }) => {
         });
     }
   };
+
+  if (isLoading) return <Loading />;
   return (
-    <div className="comment-container">
+    <div className="container">
       {loggedInUser ? (
-        <div className="card">
+        <div>
           <form onSubmit={(e) => handleSubmit(e)}>
-            <label>Comment</label>
-            <textarea
-              className="text-area"
-              type="text"
-              required
-              placeholder="add comment here"
-              onChange={(e) => setCommentInput(e.target.value)}
-              value={commentInput}
-            ></textarea>
-            <button type="submit" disabled={isLoading}>
+            <div>
+              <textarea
+                className="text-area form-control"
+                type="text"
+                cols="110"
+                rows="8"
+                required
+                placeholder="Add your comments..."
+                onChange={(e) => setCommentInput(e.target.value)}
+                value={commentInput}
+              ></textarea>
+            </div>
+            <button className="btn-dark" type="submit" disabled={isLoading}>
               Post a comment
             </button>
           </form>
@@ -86,7 +97,7 @@ const Comments = ({ loggedInUser }) => {
           <section className="card" key={comment_id}>
             <h3>{author}</h3>
             <p>{body}</p>
-            <p>Posted on {created_at}</p>
+            <p>Posted on: {displayDate(created_at)}</p>
             <p>Votes: {votes}</p>
             {loggedInUser && loggedInUser.username === author ? (
               <div className="d-flex justify-content-end">

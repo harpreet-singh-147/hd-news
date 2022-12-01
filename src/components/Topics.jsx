@@ -3,15 +3,16 @@ import { Link } from "react-router-dom";
 const Topics = ({ topics }) => {
   return (
     <div>
-      <h5>View Specific Topic</h5>
-
-      {topics.map((topic) => {
-        return (
-          <Link to={`/articles/topics/${topic.slug}`}>
-            <button>{topic.slug}</button>
-          </Link>
-        );
-      })}
+      <h3 className="text-center">View Specific Topic</h3>
+      <div className="d-flex justify-content-center">
+        {topics.map((topic) => {
+          return (
+            <Link to={`/articles/topics/${topic.slug}`}>
+              <button className="btn-dark">{topic.slug}</button>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 };
