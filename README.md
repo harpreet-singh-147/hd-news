@@ -9,11 +9,15 @@ You can find the link to the hosted version of my back-end project here: https:/
 HD News is a social news aggregation, web content rating, and discussion website that contains articles which are divided into topics. Each article has user curated ratings and can be up or down voted using the API. Users can add comments about an article, delete their own comments, sort articles by votes, comments and date created in descending or ascending order.
 
 ## Installation
-Make sure you have Node.js installed.
+Node.js is required.
 
-### Clone this repository on your local machine
+## Cloning this repo
+
+In order to access this repo locally, you can either fork and clone this repo, or clone directly from the following url:
+
+```
 git clone https://github.com/harpreet-singh-147/nc-news.git
-
+```
 ### Navigate into the repository
 cd nc-news
 
