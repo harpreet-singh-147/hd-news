@@ -18,7 +18,7 @@ In order to access this repo locally, you can either fork and clone this repo, o
 ```
 git clone https://github.com/harpreet-singh-147/nc-news.git
 ```
-## Navigate into the repository
+## Navigate into the repo
 ```
 cd nc-news
 ```
@@ -28,7 +28,7 @@ cd nc-news
 npm install
 ```
 
-## Start the application to run on your default browser
+## Starting the app (will run on your default browser)
 ```
 npm start
 ```
