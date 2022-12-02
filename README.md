@@ -39,3 +39,4 @@ npm start
 v18.4.0
 ```
 
+Please feel free to fork, clone and play around!
