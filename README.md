@@ -1,3 +1,8 @@
+HD News is a front end solo project which consolidates my understanding of making a C.R.U.D application which consumes the back-end RESTful API which I designed as part of the Northcoders Bootcamp solo project phases. 
+In this project, the aim is to create a user interface that utilises API calls such as GET, POST, PATCH and DELETE from the back-end which can be found here
+
+HD News is a social news aggregation, web content rating, and discussion website that contains articles which are divided into topics. Each article has user curated ratings and can be up or down voted using the API. Users can add comments about an article, delete their own comments, sort articles by votes, comments and date created in descending or ascending order.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
