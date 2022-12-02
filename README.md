@@ -18,15 +18,23 @@ In order to access this repo locally, you can either fork and clone this repo, o
 ```
 git clone https://github.com/harpreet-singh-147/nc-news.git
 ```
-### Navigate into the repository
+## Navigate into the repository
+```
 cd nc-news
+```
 
-### Install dependencies
+## Install dependencies
+```
 npm install
+```
 
-### Start the application to run on your default browser
+## Start the application to run on your default browser
+```
 npm start
+```
 
+```
 Built with Node Version:
 v18.4.0
+```
 
