@@ -69,36 +69,33 @@ const Comments = ({ loggedInUser }) => {
 
   if (isLoading) return <Loading />;
   return (
-    <div className="container">
+    <div className="comment-container">
       {loggedInUser ? (
-        <div>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div>
-              <textarea
-                className="text-area form-control"
-                type="text"
-                cols="110"
-                rows="8"
-                required
-                placeholder="Add your comments..."
-                onChange={(e) => setCommentInput(e.target.value)}
-                value={commentInput}
-              ></textarea>
-            </div>
-            <button className="btn-dark" type="submit" disabled={isLoading}>
-              Post a comment
-            </button>
-          </form>
-        </div>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div>
+            <textarea
+              className="text-area form-control"
+              type="text"
+              cols="110"
+              rows="8"
+              required
+              placeholder="Add your comments..."
+              onChange={(e) => setCommentInput(e.target.value)}
+              value={commentInput}
+            ></textarea>
+          </div>
+          <button className="btn-dark" type="submit" disabled={isLoading}>
+            Post a comment
+          </button>
+        </form>
       ) : null}
-      <h2 className="comments-title">Comments</h2>
+      <h2 className="comments-title text-center">Comments</h2>
       {comments.map(({ comment_id, votes, created_at, author, body }) => {
         return (
           <section className="card" key={comment_id}>
             <h3>{author}</h3>
             <p>{body}</p>
             <p>Posted on: {displayDate(created_at)}</p>
-            <p>Votes: {votes}</p>
             {loggedInUser && loggedInUser.username === author ? (
               <div className="d-flex justify-content-end">
                 <button

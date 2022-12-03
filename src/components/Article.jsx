@@ -36,18 +36,60 @@ const Article = ({ loggedInUser }) => {
   }, []);
 
   const voteButtonHandler = (vote) => {
-    setSingleArticle({
-      ...singleArticle,
-      votes: singleArticle.votes + vote,
-    });
+    if (singleArticle.voted !== vote) {
+      let modifyVoteBy;
+      if (
+        (singleArticle.voted === -1 && vote === 1) ||
+        (singleArticle.voted === 1 && vote === -1)
+      ) {
+        modifyVoteBy = vote * 2; //
+      } else {
+        modifyVoteBy = vote;
+      }
 
-    updateVotes(vote, singleArticle.article_id)
-      .then(({ updatedArticle }) => {
-        setSingleArticle({ ...singleArticle, ...updatedArticle });
-      })
-      .catch((err) => {
-        alert("something went wrong");
+      setSingleArticle({
+        ...singleArticle,
+        votes: singleArticle.votes + modifyVoteBy,
       });
+
+      updateVotes(modifyVoteBy, singleArticle.article_id)
+        .then(({ updatedArticle }) => {
+          setSingleArticle({
+            ...singleArticle,
+            ...updatedArticle,
+            voted: vote,
+          });
+        })
+        .catch((err) => {
+          setSingleArticle({
+            ...singleArticle,
+            votes: singleArticle.votes,
+          });
+          alert("something went wrong");
+        });
+    } else {
+      setSingleArticle({
+        ...singleArticle,
+        votes: singleArticle.votes - vote,
+        voted: singleArticle.voted - vote,
+      });
+
+      updateVotes(-vote, singleArticle.article_id)
+        .then(({ updatedArticle }) => {
+          setSingleArticle({
+            ...singleArticle,
+            ...updatedArticle,
+            voted: 0,
+          });
+        })
+        .catch((err) => {
+          setSingleArticle({
+            ...singleArticle,
+            votes: singleArticle.votes,
+          });
+          alert("something went wrong");
+        });
+    }
   };
 
   if (isLoading) return <Loading />;
@@ -55,9 +97,13 @@ const Article = ({ loggedInUser }) => {
 
   return (
     <div className="container">
-      <Link to="/articles">
-        <button className="btn-dark">Back to all articles</button>
-      </Link>
+      <h1>Topic: {singleArticle.topic}</h1>
+      <div className="text-center pt-2">
+        <Link to="/articles">
+          <button className="btn-dark ">Back to all articles</button>
+        </Link>
+      </div>
+
       <div className="card">
         <h1>{singleArticle.title}</h1>
         <p>{singleArticle.body}</p>
@@ -66,13 +112,14 @@ const Article = ({ loggedInUser }) => {
         </p>
         <p>Topic: {singleArticle.topic}</p>
         <p>Posted on: {displayDate(singleArticle.created_at)}</p>
-
         <p>{singleArticle.comment_count} Comments</p>
         {loggedInUser ? (
           <div>
             <div className="d-flex">
               <button
-                className="btn-dark"
+                className={
+                  singleArticle.voted === 1 ? "btn-dark active" : "btn-dark"
+                }
                 onClick={() => {
                   voteButtonHandler(1);
                 }}
@@ -85,7 +132,9 @@ const Article = ({ loggedInUser }) => {
             <p>{singleArticle.votes} votes</p>
             <div className="d-flex">
               <button
-                className="btn-dark"
+                className={
+                  singleArticle.voted === -1 ? "btn-dark active" : "btn-dark"
+                }
                 onClick={() => {
                   voteButtonHandler(-1);
                 }}
@@ -98,9 +147,7 @@ const Article = ({ loggedInUser }) => {
         ) : null}
       </div>
 
-      <div className="container">
-        <Comments loggedInUser={loggedInUser} />
-      </div>
+      <Comments loggedInUser={loggedInUser} />
     </div>
   );
 };

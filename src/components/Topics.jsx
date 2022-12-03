@@ -7,7 +7,7 @@ const Topics = ({ topics }) => {
       <div className="d-flex justify-content-center">
         {topics.map((topic) => {
           return (
-            <Link to={`/articles/topics/${topic.slug}`}>
+            <Link to={`/articles/topics/${topic.slug}`} key={topic.slug}>
               <button className="btn-dark">{topic.slug}</button>
             </Link>
           );

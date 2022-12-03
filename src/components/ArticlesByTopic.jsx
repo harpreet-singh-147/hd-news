@@ -4,7 +4,7 @@ import { fetchAllArticlesByTopic, fetchAllArticlesByType } from "../utils/api";
 import { Link } from "react-router-dom";
 import Error from "./Error";
 import Loading from "./Loading";
-import formatDate, { displayDate } from "../utils/formatDate";
+import { displayDate } from "../utils/formatDate";
 
 const ArticlesByTopic = () => {
   const [filteredArticles, setFilteredArticles] = useState([]);
@@ -62,17 +62,14 @@ const ArticlesByTopic = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="container">
-      <Link to="/articles">
-        <div>
-          <button className="btn-dark">Back to all articles</button>
-        </div>
-      </Link>
-      <div>
-        <h1 className="text-center">{topic.toUpperCase()}</h1>
+    <div className="container pb-3">
+      <div className="yellow-bg-border">
+        <h1 className="text-bold pt-1 ">{topic.toUpperCase()}</h1>
       </div>
+
       <div className="mt-4 d-flex justify-content-center">
-        <div>
+        {/* Sort By Category */}
+        <div className="px-custom ">
           <label className="form-label text-center">Sort By</label>
 
           <select
@@ -86,7 +83,8 @@ const ArticlesByTopic = () => {
             <option value="votes">Votes</option>
           </select>
         </div>
-        <div>
+        {/* Sort By Order (ASC/DESC) */}
+        <div className="px-custom ">
           <label className="form-label text-center">Order By</label>
           <select
             className="form-control"
@@ -100,6 +98,11 @@ const ArticlesByTopic = () => {
             <option value="DESC">Descending</option>
           </select>
         </div>
+      </div>
+      <div className="text-center mt-2 ">
+        <Link to="/articles">
+          <button className="btn-dark">Back to all articles</button>
+        </Link>
       </div>
       {filteredArticles.map(
         ({ author, title, created_at, votes, comment_count, article_id }) => {

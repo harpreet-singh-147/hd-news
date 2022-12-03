@@ -14,7 +14,9 @@ const Nav = ({ loggedInUser, setLoggedInUser }) => {
           {loggedInUser ? (
             <>
               <li>
-                <h3 className="nav">Hello {loggedInUser.name.split(" ")[0]}</h3>
+                <Link to="" style={{ pointerEvents: "none" }}>
+                  Hello {loggedInUser.name.split(" ")[0]}
+                </Link>
               </li>
               <li>
                 <Link

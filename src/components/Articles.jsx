@@ -59,10 +59,14 @@ const Articles = () => {
 
   if (isLoading) return <Loading />;
   return (
-    <div className="container">
-      <Topics topics={topics} />
+    <div className="container pb-3">
+      <div>
+        <h1 className="text-bold pt-1">ALL ARTICLES</h1>
+      </div>
+
       <div className="mt-4 d-flex justify-content-center ">
-        <div>
+        {/* Sort By Category Dropdown*/}
+        <div className="px-custom ">
           <label className="form-label text-center">Sort By</label>
 
           <select
@@ -76,7 +80,8 @@ const Articles = () => {
             <option value="votes">Votes</option>
           </select>
         </div>
-        <div>
+        {/* Sort By Order (ASC/DESC) */}
+        <div className="px-custom ">
           <label className="form-label text-center">Order By</label>
           <select
             className="form-control"
@@ -91,6 +96,7 @@ const Articles = () => {
           </select>
         </div>
       </div>
+      <Topics topics={topics} />
       {articles.map(({ author, title, body, article_id }) => {
         return (
           <div className="card" key={article_id}>
