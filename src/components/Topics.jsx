@@ -8,7 +8,10 @@ const Topics = ({ topics }) => {
         {topics.map((topic) => {
           return (
             <Link to={`/articles/topics/${topic.slug}`} key={topic.slug}>
-              <button className="btn-dark all-articles-page-btn">
+              <button
+                aria-label={`choose ${topic.slug}`}
+                className="btn-dark all-articles-page-btn"
+              >
                 {topic.slug}
               </button>
             </Link>

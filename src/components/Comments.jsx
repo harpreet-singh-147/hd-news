@@ -69,11 +69,12 @@ const Comments = ({ loggedInUser }) => {
 
   if (isLoading) return <Loading />;
   return (
-    <div className="comment-container">
+    <>
       {loggedInUser ? (
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
             <textarea
+              aria-label="Add your comments here"
               className="text-area "
               type="text"
               cols="110"
@@ -84,7 +85,12 @@ const Comments = ({ loggedInUser }) => {
               value={commentInput}
             ></textarea>
           </div>
-          <button className="btn-dark" type="submit" disabled={isLoading}>
+          <button
+            aria-label="Post your comment button"
+            className="btn-dark"
+            type="submit"
+            disabled={isLoading}
+          >
             Post a comment
           </button>
         </form>
@@ -99,6 +105,7 @@ const Comments = ({ loggedInUser }) => {
             {loggedInUser && loggedInUser.username === author ? (
               <div className="d-flex justify-content-end">
                 <button
+                  aria-label="Delete comment button"
                   className="btn-danger"
                   onClick={() => handleDelete(comment_id)}
                 >
@@ -109,7 +116,7 @@ const Comments = ({ loggedInUser }) => {
           </section>
         );
       })}
-    </div>
+    </>
   );
 };
 

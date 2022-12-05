@@ -21,7 +21,7 @@ const Welcome = ({ loggedInUser, setLoggedInUser }) => {
 
   if (isLoading) return <Loading />;
   return (
-    <div className="container content-wrapper">
+    <main className="container content-wrapper">
       {loggedInUser ? (
         <h1 className="text-bold pt-2">
           Hi {loggedInUser.name.split(" ")[0]}. Select another user or{" "}
@@ -65,7 +65,7 @@ const Welcome = ({ loggedInUser, setLoggedInUser }) => {
           </h3>
         </Link>
       ) : null}
-    </div>
+    </main>
   );
 };
 

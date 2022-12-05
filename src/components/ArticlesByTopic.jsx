@@ -66,7 +66,7 @@ const ArticlesByTopic = () => {
       <div className="yellow-bg-border">
         <h1 className="text-bold uppercase">{topic}</h1>
       </div>
-      <div className="container pt-1 pb-3">
+      <section className="container pt-1 pb-3">
         <div className="mt-4 d-flex justify-content-center">
           <div className="px-custom ">
             <label className="form-label text-center">Sort By</label>
@@ -99,7 +99,10 @@ const ArticlesByTopic = () => {
         </div>
         <div className="text-center mt-2 ">
           <Link to="/articles">
-            <button className="btn-dark articles-by-topic-btn">
+            <button
+              aria-label="Go back to all articles"
+              className="btn-dark articles-by-topic-btn"
+            >
               Back to all articles
             </button>
           </Link>
@@ -107,7 +110,7 @@ const ArticlesByTopic = () => {
         {filteredArticles.map(
           ({ author, title, created_at, votes, comment_count, article_id }) => {
             return (
-              <div key={article_id} className="card">
+              <section key={article_id} className="card">
                 <h1>{title}</h1>
 
                 <p>
@@ -118,11 +121,11 @@ const ArticlesByTopic = () => {
                 <p>Comments: {comment_count}</p>
 
                 <Link to={`/articles/${article_id}`}>View article</Link>
-              </div>
+              </section>
             );
           }
         )}
-      </div>
+      </section>
     </>
   );
 };

@@ -24,6 +24,7 @@ const Articles = () => {
       .catch((err) => {
         setIsLoading(true);
       });
+    setIsLoading(true);
     fetchAllTopics()
       .then(({ topics }) => {
         setTopics(topics);
@@ -63,12 +64,13 @@ const Articles = () => {
       <div className="yellow-bg-border">
         <h1 className="text-bold">ALL ARTICLES</h1>
       </div>
-      <div className="container pt-1 pb-3 ">
+      <section className="container pt-1 pb-3 ">
         <div className="mt-4 d-flex justify-content-center ">
           <div className="px-custom ">
             <label className="form-label text-center">Sort By</label>
 
             <select
+              aria-label="choose what you want to sort by"
               className="form-control"
               defaultValue={sortBy}
               onChange={(e) => handleChange(e)}
@@ -82,6 +84,7 @@ const Articles = () => {
           <div className="px-custom ">
             <label className="form-label text-center">Order By</label>
             <select
+              aria-label="choose order by ascending or descending"
               className="form-control"
               defaultValue={ordering}
               onChange={(e) => handleOrdering(e)}
@@ -98,7 +101,7 @@ const Articles = () => {
         {articles.map(({ author, title, body, article_id, topic }) => {
           topic = topic.charAt(0).toUpperCase() + topic.slice(1);
           return (
-            <div className="card" key={article_id}>
+            <article className="card" key={article_id}>
               <h1>{title}</h1>
               <p className="truncate-content">{body}</p>
 
@@ -107,10 +110,10 @@ const Articles = () => {
               <p>
                 Written by: <b>{author}</b>
               </p>
-            </div>
+            </article>
           );
         })}
-      </div>
+      </section>
     </>
   );
 };

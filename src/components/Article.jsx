@@ -6,11 +6,13 @@ import Comments from "./Comments";
 import Error from "./Error";
 import { displayDate } from "../utils/formatDate";
 import Loading from "./Loading";
+import Modal from "./Modal";
 
-const Article = ({ loggedInUser }) => {
+const Article = ({ loggedInUser, setLoggedInUser }) => {
   const [singleArticle, setSingleArticle] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -91,6 +93,10 @@ const Article = ({ loggedInUser }) => {
     }
   };
 
+  if (openModal)
+    return (
+      <Modal setLoggedInUser={setLoggedInUser} setOpenModal={setOpenModal} />
+    );
   if (isLoading) return <Loading />;
   if (error) return <Error error={error} />;
 
@@ -113,18 +119,20 @@ const Article = ({ loggedInUser }) => {
           </Link>
         </div>
 
-        <div className="card">
+        <article className="card">
           <h1>{singleArticle.title}</h1>
           <p>{singleArticle.body}</p>
           <p>
             Written by: <b>{singleArticle.author}</b>
           </p>
           <p>Posted on: {displayDate(singleArticle.created_at)}</p>
+          {!loggedInUser ? <p>{singleArticle.votes} votes</p> : null}
           <p>{singleArticle.comment_count} Comments</p>
           {loggedInUser ? (
             <div>
               <div className="d-flex">
                 <button
+                  aria-label="Up vote button"
                   className={
                     singleArticle.voted === 1 ? "btn-dark active" : "btn-dark"
                   }
@@ -140,6 +148,7 @@ const Article = ({ loggedInUser }) => {
               <p>{singleArticle.votes} votes</p>
               <div className="d-flex">
                 <button
+                  aria-label="Down vote button"
                   className={
                     singleArticle.voted === -1 ? "btn-dark active" : "btn-dark"
                   }
@@ -153,9 +162,22 @@ const Article = ({ loggedInUser }) => {
               </div>
             </div>
           ) : null}
+        </article>
+        {!loggedInUser ? (
+          <h2 className="text-center ">
+            Please{" "}
+            <Link
+              className="text-decoration-none"
+              onClick={() => setOpenModal(true)}
+            >
+              login{" "}
+            </Link>
+            to vote and comment
+          </h2>
+        ) : null}
+        <div className="comment-container">
+          <Comments loggedInUser={loggedInUser} />
         </div>
-
-        <Comments loggedInUser={loggedInUser} />
       </div>
     </>
   );

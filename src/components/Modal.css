@@ -1,0 +1,107 @@
+.modal-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 30px;
+   
+}
+
+.modal-content-wrapper {
+    min-height: 96vh;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(12, 12, 12, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+
+    padding: 0 30px;
+    padding-top: 10px;
+    padding-bottom: 45px;
+    max-width: 680px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+               
+}
+
+.modal-users-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+}
+
+.modal-users-container {
+    width: 180px;
+    border: 1px solid black;
+    padding: .5em;
+    margin: .3em;
+    /* justify-self: center; */
+    text-align: center;
+    color: black;
+
+}
+
+.modal-avatar-img {
+
+    max-width: 83%;
+    height: 90px;
+    object-fit: contain;
+    
+}
+
+
+
+
+/* Close Button */
+.close-span {
+    font-weight: bold;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+@media (max-width: 767px){
+
+    .modal {
+        padding: 1rem;
+        max-width: 440px;
+
+    }
+
+}
+
+
+/* 300 - 450 */
+@media (max-width:  470px){
+    .modal-header {
+        font-size: 1.5em;
+    }
+
+    .modal {
+        max-width: 360px;
+        padding: 1rem .5rem;
+    }
+
+    .modal-users-container {
+        width: 150px;
+    }
+
+    .modal-avatar-name {
+        font-size: 1rem;
+    }
+
+    .modal-avatar-username {
+        font-size: .75rem;
+    }
+}
+
+

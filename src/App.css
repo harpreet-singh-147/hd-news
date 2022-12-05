@@ -297,6 +297,10 @@ color: black;
   text-transform: capitalize;
 }
 
+.text-login-color{
+  color: #da152f;
+}
+
 /* truncating */
 
 .truncate-content {
