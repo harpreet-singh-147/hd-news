@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
+
 const Nav = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation();
   return (
     <nav className="navbar">
       <div className="container">
         <div className="logo">
-          <Link to="/">NC News</Link>
+          <Link to="/">HD News</Link>
         </div>
         <ul className="nav">
           <li>

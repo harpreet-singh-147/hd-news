@@ -74,7 +74,7 @@ const Comments = ({ loggedInUser }) => {
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
             <textarea
-              className="text-area form-control"
+              className="text-area "
               type="text"
               cols="110"
               rows="8"

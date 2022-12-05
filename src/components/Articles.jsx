@@ -59,58 +59,59 @@ const Articles = () => {
 
   if (isLoading) return <Loading />;
   return (
-    <div className="container pb-3">
-      <div>
-        <h1 className="text-bold pt-1">ALL ARTICLES</h1>
+    <>
+      <div className="yellow-bg-border">
+        <h1 className="text-bold">ALL ARTICLES</h1>
       </div>
+      <div className="container pt-1 pb-3 ">
+        <div className="mt-4 d-flex justify-content-center ">
+          <div className="px-custom ">
+            <label className="form-label text-center">Sort By</label>
 
-      <div className="mt-4 d-flex justify-content-center ">
-        {/* Sort By Category Dropdown*/}
-        <div className="px-custom ">
-          <label className="form-label text-center">Sort By</label>
-
-          <select
-            className="form-control"
-            defaultValue={sortBy}
-            onChange={(e) => handleChange(e)}
-          >
-            <option value="">Choose option</option>
-            <option value="created_at">Date created</option>
-            <option value="comment_count">Comment count</option>
-            <option value="votes">Votes</option>
-          </select>
-        </div>
-        {/* Sort By Order (ASC/DESC) */}
-        <div className="px-custom ">
-          <label className="form-label text-center">Order By</label>
-          <select
-            className="form-control"
-            defaultValue={ordering}
-            onChange={(e) => handleOrdering(e)}
-          >
-            <option value="" selected={ordering === "" ? "selected" : ""}>
-              Choose option
-            </option>
-            <option value="ASC">Ascending</option>
-            <option value="DESC">Descending</option>
-          </select>
-        </div>
-      </div>
-      <Topics topics={topics} />
-      {articles.map(({ author, title, body, article_id }) => {
-        return (
-          <div className="card" key={article_id}>
-            <h1 className="truncate-content">{title}</h1>
-            <p className="truncate-content">{body}</p>
-
-            <Link to={`/articles/${article_id}`}>Read more</Link>
-            <p>
-              Written by: <b>{author}</b>
-            </p>
+            <select
+              className="form-control"
+              defaultValue={sortBy}
+              onChange={(e) => handleChange(e)}
+            >
+              <option value="">Choose option</option>
+              <option value="created_at">Date created</option>
+              <option value="comment_count">Comment count</option>
+              <option value="votes">Votes</option>
+            </select>
           </div>
-        );
-      })}
-    </div>
+          <div className="px-custom ">
+            <label className="form-label text-center">Order By</label>
+            <select
+              className="form-control"
+              defaultValue={ordering}
+              onChange={(e) => handleOrdering(e)}
+            >
+              <option value="" selected={ordering === "" ? "selected" : ""}>
+                Choose option
+              </option>
+              <option value="ASC">Ascending</option>
+              <option value="DESC">Descending</option>
+            </select>
+          </div>
+        </div>
+        <Topics topics={topics} />
+        {articles.map(({ author, title, body, article_id, topic }) => {
+          topic = topic.charAt(0).toUpperCase() + topic.slice(1);
+          return (
+            <div className="card" key={article_id}>
+              <h1>{title}</h1>
+              <p className="truncate-content">{body}</p>
+
+              <Link to={`/articles/${article_id}`}>Read more</Link>
+              <p>Topic: {topic}</p>
+              <p>
+                Written by: <b>{author}</b>
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

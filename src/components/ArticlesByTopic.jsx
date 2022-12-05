@@ -62,67 +62,68 @@ const ArticlesByTopic = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="container pb-3">
+    <>
       <div className="yellow-bg-border">
-        <h1 className="text-bold pt-1 ">{topic.toUpperCase()}</h1>
+        <h1 className="text-bold uppercase">{topic}</h1>
       </div>
+      <div className="container pt-1 pb-3">
+        <div className="mt-4 d-flex justify-content-center">
+          <div className="px-custom ">
+            <label className="form-label text-center">Sort By</label>
 
-      <div className="mt-4 d-flex justify-content-center">
-        {/* Sort By Category */}
-        <div className="px-custom ">
-          <label className="form-label text-center">Sort By</label>
-
-          <select
-            className="form-control"
-            defaultValue={sortBy}
-            onChange={(e) => handleChange(e)}
-          >
-            <option value="">Choose option</option>
-            <option value="created_at">Date created</option>
-            <option value="comment_count">Comment count</option>
-            <option value="votes">Votes</option>
-          </select>
+            <select
+              className="form-control"
+              defaultValue={sortBy}
+              onChange={(e) => handleChange(e)}
+            >
+              <option value="">Choose option</option>
+              <option value="created_at">Date created</option>
+              <option value="comment_count">Comment count</option>
+              <option value="votes">Votes</option>
+            </select>
+          </div>
+          <div className="px-custom ">
+            <label className="form-label text-center">Order By</label>
+            <select
+              className="form-control"
+              defaultValue={ordering}
+              onChange={(e) => handleOrdering(e)}
+            >
+              <option value="" selected={ordering === "" ? "selected" : ""}>
+                Choose option
+              </option>
+              <option value="ASC">Ascending</option>
+              <option value="DESC">Descending</option>
+            </select>
+          </div>
         </div>
-        {/* Sort By Order (ASC/DESC) */}
-        <div className="px-custom ">
-          <label className="form-label text-center">Order By</label>
-          <select
-            className="form-control"
-            defaultValue={ordering}
-            onChange={(e) => handleOrdering(e)}
-          >
-            <option value="" selected={ordering === "" ? "selected" : ""}>
-              Choose option
-            </option>
-            <option value="ASC">Ascending</option>
-            <option value="DESC">Descending</option>
-          </select>
+        <div className="text-center mt-2 ">
+          <Link to="/articles">
+            <button className="btn-dark articles-by-topic-btn">
+              Back to all articles
+            </button>
+          </Link>
         </div>
-      </div>
-      <div className="text-center mt-2 ">
-        <Link to="/articles">
-          <button className="btn-dark">Back to all articles</button>
-        </Link>
-      </div>
-      {filteredArticles.map(
-        ({ author, title, created_at, votes, comment_count, article_id }) => {
-          return (
-            <div key={article_id} className="card">
-              <h1>{title}</h1>
+        {filteredArticles.map(
+          ({ author, title, created_at, votes, comment_count, article_id }) => {
+            return (
+              <div key={article_id} className="card">
+                <h1>{title}</h1>
 
-              <p>
-                Written By: <b>{author}</b>
-              </p>
-              <p>{displayDate(created_at)}</p>
-              <p>Votes: {votes}</p>
-              <p>Comments: {comment_count}</p>
+                <p>
+                  Written By: <b>{author}</b>
+                </p>
+                <p>{displayDate(created_at)}</p>
+                <p>Votes: {votes}</p>
+                <p>Comments: {comment_count}</p>
 
-              <Link to={`/articles/${article_id}`}>View article</Link>
-            </div>
-          );
-        }
-      )}
-    </div>
+                <Link to={`/articles/${article_id}`}>View article</Link>
+              </div>
+            );
+          }
+        )}
+      </div>
+    </>
   );
 };
 

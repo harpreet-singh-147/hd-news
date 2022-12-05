@@ -8,7 +8,9 @@ const Topics = ({ topics }) => {
         {topics.map((topic) => {
           return (
             <Link to={`/articles/topics/${topic.slug}`} key={topic.slug}>
-              <button className="btn-dark">{topic.slug}</button>
+              <button className="btn-dark all-articles-page-btn">
+                {topic.slug}
+              </button>
             </Link>
           );
         })}

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchSingleArticle } from "../utils/api";
 import { Link } from "react-router-dom";
-import { updateVotes, fetchCommentsByArticleId } from "../utils/api";
+import { updateVotes, fetchSingleArticle } from "../utils/api";
 import Comments from "./Comments";
 import Error from "./Error";
 import { displayDate } from "../utils/formatDate";
@@ -42,7 +41,7 @@ const Article = ({ loggedInUser }) => {
         (singleArticle.voted === -1 && vote === 1) ||
         (singleArticle.voted === 1 && vote === -1)
       ) {
-        modifyVoteBy = vote * 2; //
+        modifyVoteBy = vote * 2;
       } else {
         modifyVoteBy = vote;
       }
@@ -96,59 +95,69 @@ const Article = ({ loggedInUser }) => {
   if (error) return <Error error={error} />;
 
   return (
-    <div className="container">
-      <h1>Topic: {singleArticle.topic}</h1>
-      <div className="text-center pt-2">
-        <Link to="/articles">
-          <button className="btn-dark ">Back to all articles</button>
-        </Link>
+    <>
+      <div className="yellow-bg-border">
+        <h1 className="text-bold uppercase">{singleArticle.topic}</h1>
       </div>
+      <div className="container">
+        <div className="text-center pt-2">
+          <Link to="/articles">
+            <button className="btn-dark article-page-btn">
+              Back to all articles
+            </button>
+          </Link>
+          <Link to={`/articles/topics/${singleArticle.topic}`}>
+            <button className="btn-dark article-page-btn ">
+              Back to {singleArticle.topic} articles
+            </button>
+          </Link>
+        </div>
 
-      <div className="card">
-        <h1>{singleArticle.title}</h1>
-        <p>{singleArticle.body}</p>
-        <p>
-          Written By: <b>{singleArticle.author}</b>
-        </p>
-        <p>Topic: {singleArticle.topic}</p>
-        <p>Posted on: {displayDate(singleArticle.created_at)}</p>
-        <p>{singleArticle.comment_count} Comments</p>
-        {loggedInUser ? (
-          <div>
-            <div className="d-flex">
-              <button
-                className={
-                  singleArticle.voted === 1 ? "btn-dark active" : "btn-dark"
-                }
-                onClick={() => {
-                  voteButtonHandler(1);
-                }}
-              >
-                <i className="arrow up"></i>
-              </button>
-              <p>up vote article</p>
-            </div>
+        <div className="card">
+          <h1>{singleArticle.title}</h1>
+          <p>{singleArticle.body}</p>
+          <p>
+            Written by: <b>{singleArticle.author}</b>
+          </p>
+          <p>Posted on: {displayDate(singleArticle.created_at)}</p>
+          <p>{singleArticle.comment_count} Comments</p>
+          {loggedInUser ? (
+            <div>
+              <div className="d-flex">
+                <button
+                  className={
+                    singleArticle.voted === 1 ? "btn-dark active" : "btn-dark"
+                  }
+                  onClick={() => {
+                    voteButtonHandler(1);
+                  }}
+                >
+                  <i className="arrow up"></i>
+                </button>
+                <p>Up vote article</p>
+              </div>
 
-            <p>{singleArticle.votes} votes</p>
-            <div className="d-flex">
-              <button
-                className={
-                  singleArticle.voted === -1 ? "btn-dark active" : "btn-dark"
-                }
-                onClick={() => {
-                  voteButtonHandler(-1);
-                }}
-              >
-                <i className="arrow down"></i>
-              </button>
-              <p>down vote article</p>
+              <p>{singleArticle.votes} votes</p>
+              <div className="d-flex">
+                <button
+                  className={
+                    singleArticle.voted === -1 ? "btn-dark active" : "btn-dark"
+                  }
+                  onClick={() => {
+                    voteButtonHandler(-1);
+                  }}
+                >
+                  <i className="arrow down"></i>
+                </button>
+                <p>Down vote article</p>
+              </div>
             </div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
+
+        <Comments loggedInUser={loggedInUser} />
       </div>
-
-      <Comments loggedInUser={loggedInUser} />
-    </div>
+    </>
   );
 };
 
