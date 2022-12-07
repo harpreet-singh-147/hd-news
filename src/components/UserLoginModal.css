@@ -2,6 +2,7 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 30px;
+    
    
 }
 
@@ -30,6 +31,7 @@
     margin: 0 auto;
     background: #fff;
     border-radius: 10px;
+    border: 3px solid black;
                
 }
 
@@ -69,7 +71,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 767px){
+@media screen and (max-width: 767px){
 
     .modal {
         padding: 1rem;
@@ -81,7 +83,7 @@
 
 
 /* 300 - 450 */
-@media (max-width:  470px){
+@media screen and (max-width:  470px){
     .modal-header {
         font-size: 1.5em;
     }
@@ -104,4 +106,98 @@
     }
 }
 
+@media screen and (max-width: 378px) {
 
+
+    .modal-header {
+        font-size: 1.5em;
+    }
+
+    .modal {
+        max-width: 310px;
+        padding-top: .2rem;
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+
+    .modal-users-container {
+        max-width: 130px;
+
+    }
+
+    .modal-avatar-name {
+        font-size: .9rem;
+    }
+
+    .modal-avatar-username {
+        font-size: .8rem;
+    }
+
+    .modal-users-wrapper {
+        padding-bottom: 1.4rem;
+
+    }
+}
+
+
+
+
+
+
+@media screen and (max-width: 300px) {
+
+
+    .modal-header {
+        font-size: 1.5em;
+    }
+
+    .modal {
+        max-width: 260px;
+        padding-top: .2rem;
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+
+    .modal-users-container {
+        width: 100px;
+        
+    }
+
+    .modal-avatar-name {
+        font-size: .69rem;
+    }
+
+    .modal-avatar-username {
+        font-size: .64rem;
+    }
+
+    .modal-users-wrapper {
+        padding-bottom: 1.4rem;
+
+    }
+}
+
+
+
+@keyframes inAnimation {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes outAnimation {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}

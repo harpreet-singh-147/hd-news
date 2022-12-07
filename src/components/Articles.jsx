@@ -7,32 +7,54 @@ import { useEffect, useState } from "react";
 import Topics from "./Topics";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
+import Error from "./Error";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [topicError, setTopicError] = useState(null);
   const [sortBy, setSortBy] = useState("");
   const [ordering, setOrdering] = useState("");
+
   useEffect(() => {
     setIsLoading(true);
     fetchAllArticles()
       .then(({ articles: allArticles }) => {
         setArticles(allArticles);
         setIsLoading(false);
+        setError(null);
       })
-      .catch((err) => {
-        setIsLoading(true);
-      });
+      .catch(
+        ({
+          response: {
+            data: { msg },
+            status,
+          },
+        }) => {
+          setError({ msg, status });
+          setIsLoading(false);
+        }
+      );
     setIsLoading(true);
     fetchAllTopics()
       .then(({ topics }) => {
         setTopics(topics);
         setIsLoading(false);
+        setTopicError(null);
       })
-      .catch((err) => {
-        setIsLoading(true);
-      });
+      .catch(
+        ({
+          response: {
+            data: { msg },
+            status,
+          },
+        }) => {
+          setTopicError({ msg, status });
+          setIsLoading(false);
+        }
+      );
   }, []);
 
   const handleChange = (e) => {
@@ -57,14 +79,15 @@ const Articles = () => {
       );
     }
   };
-
+  if (error || topicError)
+    return <Error error={error} topicError={topicError} />;
   if (isLoading) return <Loading />;
   return (
     <>
       <div className="yellow-bg-border">
         <h1 className="text-bold">ALL ARTICLES</h1>
       </div>
-      <section className="container pt-1 pb-3 ">
+      <section className="container pt-1 pb-3">
         <div className="mt-4 d-flex justify-content-center ">
           <div className="px-custom ">
             <label className="form-label text-center">Sort By</label>

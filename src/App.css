@@ -46,6 +46,12 @@ ul {
 }
 
 /* Paddings */
+
+.pt-05{
+padding-top: .6rem;
+  
+}
+
 .pt-1 {
   padding-top: 1rem; /* 16px */
 }
@@ -60,6 +66,10 @@ ul {
 
 .px-custom {
   padding: 0 0.2rem;
+}
+
+.pb-2 {
+  padding-bottom: 2rem;
 }
 
 .pb-3 {
@@ -77,6 +87,10 @@ ul {
 
 .mt-2 {
   margin-top: 2rem;
+}
+
+.mb-2{
+  margin-bottom: 2rem;
 }
 
 /* colors */
@@ -188,6 +202,7 @@ ul {
 
 .card h1 {
   font-weight: 500;
+  font-size: 2rem;
 }
 
 /* styling arrows */
@@ -240,8 +255,8 @@ ul {
 .avatar-img {
   
   max-width: 90%;
-  width: 250px;
-  height: 250px;
+  width: 245px;
+  height: 245px;
 }
 
 
@@ -408,4 +423,315 @@ width: 125px;
   width: 100%;
   height: 100vh;
   
+}
+
+@media screen and (max-width: 915px){
+.card h1 {
+    font-weight: 500;
+    font-size: 1.7rem;
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+
+.users-wrapper {
+    width: 100%;
+    padding: 1rem .5rem;
+
+  }
+
+  .users-container {
+    width: 200px;
+    padding: .5em;
+  }
+
+  .avatar-name {
+    font-size: 1rem;
+  }
+
+  .avatar-username {
+    font-size: .75rem;
+  }
+
+  .avatar-img {
+    /* max-width: 83%; */
+    /* height: 90px; */
+    object-fit: contain;
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+
+
+  .card h1 {
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+
+  .users-wrapper {
+      width: 100%;
+      padding: 1rem .5rem;
+  
+    }
+  
+    .users-container {
+      width: 200px;
+      padding: .5em;
+    }
+  
+    .avatar-name {
+      font-size: 1rem;
+    }
+  
+    .avatar-username {
+      font-size: .75rem;
+    }
+  
+    .avatar-img {
+      /* max-width: 83%; */
+      /* height: 90px; */
+      object-fit: contain;
+    }
+
+}
+
+@media screen and (max-width: 626px){
+    .media-626-mt {
+        margin-top: .3rem;
+      }
+}
+
+@media screen and (max-width: 470px) {
+
+ .header-main-welcome{
+  font-size: 1.8em;
+ }
+ 
+  .header {
+    font-size: 1.5em;
+  }
+
+  .users-wrapper {
+    width: 100%;
+    padding: 1rem .5rem;
+ 
+  }
+
+  .comment-container {
+    padding: .1em;
+  }
+
+  .btn-cntr-mq {
+    text-align: center;
+  }
+
+  .users-container {
+    width: 140px;
+    padding: .5em;
+  }
+
+  .avatar-name {
+    font-size: 1rem;
+  }
+
+  .avatar-username {
+    font-size: .75rem;
+  }
+
+  .avatar-img{
+    max-width: 83%;
+      height: 90px;
+      object-fit: contain;
+  }
+
+  .media-470-mt{
+    margin-top: .3rem;
+  }
+ .width-media-400-topic-btn {
+   width: 80px;
+   padding: 0.5rem 0.25rem;
+
+ }
+
+  .card h1 {
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+ 
+
+}
+
+@media screen and (max-width: 400px){
+  .form-control {
+      padding: .5em .5em;
+      font-size: 16px;
+      border-radius: 5px;
+      margin-bottom: .5em;
+  }
+  .header-main-welcome {
+      font-size: 1.5em;
+  }
+
+    .card h1 {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 380px) {
+
+  .card h1 {
+      font-weight: 700;
+      font-size: 1.1rem;
+  }
+
+  .card p{
+    font-weight: 500;
+      font-size: .9rem;
+  }
+
+  .header-main-welcome {
+      font-size: 1.4em;
+    }
+
+  .header {
+    font-size: 1.5em;
+  }
+
+  .comment-container {
+    padding: .1em;
+  }
+
+  .btn-cntr-mq {
+    text-align: center;
+  }
+
+  .users-wrapper {
+    width: 100%;
+    padding: 1rem .5rem;
+
+  }
+
+  .users-container {
+    width: 130px;
+    padding: .5em;
+  }
+
+  .avatar-name {
+    font-size: .8rem;
+  }
+
+  .avatar-username {
+    font-size: .75rem;
+  }
+
+  .avatar-img {
+    max-width: 83%;
+    height: 90px;
+    object-fit: contain;
+  }
+}
+
+@media screen and (max-width: 300px) {
+
+  .form-control {
+      padding: .4em .4em;
+      font-size: 14px;
+      border-radius: 5px;
+      margin-bottom: .5em;
+  }
+
+  .width-media-400-topic-btn {
+    width: 77px;
+    /* padding: 0.5rem 0.25rem; */
+  }
+
+  .articles-by-topic-btn {
+    width: 210px
+  }
+
+  .article-page-btn {
+    width: 210px;
+    font-size: 12px;
+  }
+
+  .d-flex-300-media {
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .comment-container {
+    padding: .1em;
+  }
+
+  .comments-title {
+    margin: 1em 0;
+  }
+
+  .btn-cntr-mq{
+    text-align: center;
+  }
+
+  .text-area {
+    resize: none;
+    max-width: 100%;
+    padding: .5em .5em;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: .5em;
+
+  }
+
+  .card h1 {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .card p {
+    font-size: 13px;
+  }
+
+  .header {
+    font-size: 1.5em;
+  }
+
+  .users-wrapper {
+    padding: .4em;
+  width: 100%;
+     
+}
+
+  .users-container {
+    padding: .4em;
+    width: 92.5px;
+  }
+
+  .avatar-name {
+    font-size: .65rem;
+  }
+
+  .avatar-username {
+    font-size: .61rem;
+  }
+
+  .avatar-img {
+    max-width: 103%;
+    height: 100px;
+    object-fit: contain;
+  }
+
+  .container h1{
+    font-size: 1.2rem;
+  }
+
+.welcome-guest-txt{
+  font-size: 0.9rem;
+}
+
+.content-wrapper {
+  min-height: 96vh;
+}
 }

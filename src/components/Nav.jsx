@@ -1,41 +1,70 @@
 import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import "./Nav.css";
 
 const Nav = ({ loggedInUser, setLoggedInUser }) => {
+  const [navOpen, setNavOpen] = useState(false);
   const location = useLocation();
+
   return (
     <nav className="navbar">
       <div className="container">
-        <div className="logo">
-          <Link to="/">HD News</Link>
-        </div>
-        <ul className="nav">
-          <li>
-            <Link to="/articles">Articles</Link>
-          </li>
-          {loggedInUser ? (
-            <>
-              <li>
-                <Link to="" style={{ pointerEvents: "none" }}>
+        <div className="nav">
+          <input type="checkbox" id="nav-check" checked={navOpen} readOnly />
+          <div className="nav-header">
+            <div className="nav-title">
+              <Link onClick={() => setNavOpen(false)} to="/">
+                HD News
+              </Link>
+            </div>
+          </div>
+          <div
+            onClick={() => setNavOpen(!navOpen)}
+            className={navOpen ? "nav-btn open" : "nav-btn "}
+          >
+            <label htmlFor="nav-check">
+              <span></span>
+              <span></span>
+              <span></span>
+            </label>
+          </div>
+
+          <div className="nav-links">
+            {!loggedInUser ? (
+              <Link to="/articles" onClick={() => setNavOpen(false)}>
+                Articles
+              </Link>
+            ) : null}
+            {loggedInUser ? (
+              <>
+                <Link
+                  style={{
+                    pointerEvents: "none",
+                  }}
+                >
                   Hello {loggedInUser.name.split(" ")[0]}
                 </Link>
-              </li>
-              <li>
+                <Link to="/articles" onClick={() => setNavOpen(false)}>
+                  Articles
+                </Link>
+
                 <Link
                   to="/"
                   onClick={() => {
+                    setNavOpen(false);
                     setLoggedInUser(null);
                   }}
                 >
                   Sign out
                 </Link>
-              </li>
-            </>
-          ) : !loggedInUser && location.pathname !== "/" ? (
-            <li>
-              <Link to="/">Sign In</Link>
-            </li>
-          ) : null}
-        </ul>
+              </>
+            ) : !loggedInUser && location.pathname !== "/" ? (
+              <Link to="/" onClick={() => setNavOpen(false)}>
+                Sign In
+              </Link>
+            ) : null}
+          </div>
+        </div>
       </div>
     </nav>
   );

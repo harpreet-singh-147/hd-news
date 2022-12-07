@@ -7,11 +7,13 @@ import {
 } from "../utils/api";
 import { displayDate } from "../utils/formatDate";
 import Loading from "./Loading";
+import Error from "./Error";
 
 const Comments = ({ loggedInUser }) => {
   const [commentInput, setCommentInput] = useState("");
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -20,10 +22,19 @@ const Comments = ({ loggedInUser }) => {
       .then(({ articleComments }) => {
         setComments(articleComments);
         setIsLoading(false);
+        setError(null);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(
+        ({
+          response: {
+            data: { msg },
+            status,
+          },
+        }) => {
+          setError({ msg, status });
+          setIsLoading(false);
+        }
+      );
   }, []);
 
   const handleSubmit = (e) => {
@@ -51,7 +62,6 @@ const Comments = ({ loggedInUser }) => {
   };
 
   const handleDelete = (comment_id) => {
-    console.log("Comment ID in handle Delete:", comment_id);
     if (comment_id) {
       setIsLoading(true);
       deleteComment(comment_id)
@@ -66,8 +76,9 @@ const Comments = ({ loggedInUser }) => {
         });
     }
   };
-
+  if (error) return <Error error={error} />;
   if (isLoading) return <Loading />;
+
   return (
     <>
       {loggedInUser ? (
@@ -85,21 +96,23 @@ const Comments = ({ loggedInUser }) => {
               value={commentInput}
             ></textarea>
           </div>
-          <button
-            aria-label="Post your comment button"
-            className="btn-dark"
-            type="submit"
-            disabled={isLoading}
-          >
-            Post a comment
-          </button>
+          <div className="btn-cntr-mq">
+            <button
+              aria-label="Post your comment button"
+              className="btn-dark btn-cntr-300mq"
+              type="submit"
+              disabled={isLoading}
+            >
+              Post a comment
+            </button>
+          </div>
         </form>
       ) : null}
       <h2 className="comments-title text-center">Comments</h2>
-      {comments.map(({ comment_id, votes, created_at, author, body }) => {
+      {comments.map(({ comment_id, created_at, author, body }) => {
         return (
           <section className="card" key={comment_id}>
-            <h3>{author}</h3>
+            <h3>@{author}</h3>
             <p>{body}</p>
             <p>Posted on: {displayDate(created_at)}</p>
             {loggedInUser && loggedInUser.username === author ? (

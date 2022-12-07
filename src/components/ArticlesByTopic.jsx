@@ -76,7 +76,7 @@ const ArticlesByTopic = () => {
               defaultValue={sortBy}
               onChange={(e) => handleChange(e)}
             >
-              <option value="">Choose option</option>
+              <option value="option">Choose option</option>
               <option value="created_at">Date created</option>
               <option value="comment_count">Comment count</option>
               <option value="votes">Votes</option>

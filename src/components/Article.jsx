@@ -6,13 +6,15 @@ import Comments from "./Comments";
 import Error from "./Error";
 import { displayDate } from "../utils/formatDate";
 import Loading from "./Loading";
-import Modal from "./Modal";
+import UserLoginModal from "./UserLoginModal";
+import VotesErrorModal from "./VotesErrorModal";
 
 const Article = ({ loggedInUser, setLoggedInUser }) => {
   const [singleArticle, setSingleArticle] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [voteErrorModal, setVoteErrorModal] = useState(false);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
           },
         }) => {
           setError({ msg, status });
-          setIsLoading(true);
+          setIsLoading(false);
         }
       );
   }, []);
@@ -66,7 +68,7 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
             ...singleArticle,
             votes: singleArticle.votes,
           });
-          alert("something went wrong");
+          setVoteErrorModal(true);
         });
     } else {
       setSingleArticle({
@@ -88,17 +90,28 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
             ...singleArticle,
             votes: singleArticle.votes,
           });
-          alert("something went wrong");
+          setVoteErrorModal(true);
         });
     }
   };
 
+  if (error) return <Error error={error} />;
+  if (isLoading) return <Loading />;
   if (openModal)
     return (
-      <Modal setLoggedInUser={setLoggedInUser} setOpenModal={setOpenModal} />
+      <UserLoginModal
+        setLoggedInUser={setLoggedInUser}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     );
-  if (isLoading) return <Loading />;
-  if (error) return <Error error={error} />;
+  if (voteErrorModal)
+    return (
+      <VotesErrorModal
+        voteErrorModal={voteErrorModal}
+        setVoteErrorModal={setVoteErrorModal}
+      />
+    );
 
   return (
     <>
@@ -107,21 +120,25 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
       </div>
       <div className="container">
         <div className="text-center pt-2">
-          <Link to="/articles">
-            <button className="btn-dark article-page-btn">
-              Back to all articles
-            </button>
-          </Link>
-          <Link to={`/articles/topics/${singleArticle.topic}`}>
-            <button className="btn-dark article-page-btn ">
-              Back to {singleArticle.topic} articles
-            </button>
-          </Link>
+          <div className="d-flex-300-media">
+            <Link to="/articles">
+              <button className="btn-dark article-page-btn">
+                Back to all articles
+              </button>
+            </Link>
+            <Link to={`/articles/topics/${singleArticle.topic}`}>
+              <button className="btn-dark article-page-btn media-470-mt media-626-mt">
+                Back to {singleArticle.topic} articles
+              </button>
+            </Link>
+          </div>
         </div>
 
         <article className="card">
           <h1>{singleArticle.title}</h1>
+          <br />
           <p>{singleArticle.body}</p>
+          <br />
           <p>
             Written by: <b>{singleArticle.author}</b>
           </p>
@@ -167,7 +184,7 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
           <h2 className="text-center ">
             Please{" "}
             <Link
-              className="text-decoration-none"
+              className="text-decoration-none text-login-color"
               onClick={() => setOpenModal(true)}
             >
               login{" "}
