@@ -644,8 +644,8 @@ width: 125px;
   }
 
   .width-media-400-topic-btn {
-    width: 77px;
-    /* padding: 0.5rem 0.25rem; */
+    max-width: 80px;
+    font-size: .69rem;
   }
 
   .articles-by-topic-btn {
