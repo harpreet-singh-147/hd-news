@@ -14,6 +14,7 @@ const Comments = ({ loggedInUser }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [errorModal, setErrorModal] = useState(false);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -76,7 +77,15 @@ const Comments = ({ loggedInUser }) => {
         });
     }
   };
-  if (error) return <Error error={error} />;
+  if (error)
+    return (
+      <Error
+        error={error}
+        errorModal={errorModal}
+        setErrorModal={setErrorModal}
+        comment="Comments not found"
+      />
+    );
   if (isLoading) return <Loading />;
 
   return (

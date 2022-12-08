@@ -10,7 +10,7 @@ const unmountedStyle = {
   animationFillMode: "forwards",
 };
 
-const Error = ({ error, errorModal, setErrorModal }) => {
+const Error = ({ error, errorModal, setErrorModal, comment, topic }) => {
   const [passedModal, setPassedModal] = useState(!errorModal);
   const navigate = useNavigate();
   return (
@@ -24,7 +24,13 @@ const Error = ({ error, errorModal, setErrorModal }) => {
             <div>
               <div className="error-modal-wrapper">
                 <div className="error-modal-text-center">
-                  <h1 className="error-modal-text">{error.msg}</h1>
+                  {comment ? (
+                    <h1 className="error-modal-text">{comment}</h1>
+                  ) : topic ? (
+                    <h1 className="error-modal-text">{topic}</h1>
+                  ) : (
+                    <h1 className="error-modal-text">{error.msg}</h1>
+                  )}
                   <h1 className="error-modal-text error-modal-text-center pb-1">
                     Status: {error.status}
                   </h1>

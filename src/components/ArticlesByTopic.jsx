@@ -65,6 +65,7 @@ const ArticlesByTopic = () => {
         error={error}
         errorModal={errorModal}
         setErrorModal={setErrorModal}
+        topic="That topic does not exist!"
       />
     );
   if (isLoading) return <Loading />;
