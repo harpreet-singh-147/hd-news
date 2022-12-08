@@ -15,6 +15,7 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
   const [error, setError] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [voteErrorModal, setVoteErrorModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
           },
         }) => {
           setError({ msg, status });
+
           setIsLoading(false);
         }
       );
@@ -95,7 +97,14 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
     }
   };
 
-  if (error) return <Error error={error} />;
+  if (error)
+    return (
+      <Error
+        error={error}
+        errorModal={errorModal}
+        setErrorModal={setErrorModal}
+      />
+    );
   if (isLoading) return <Loading />;
   if (openModal)
     return (

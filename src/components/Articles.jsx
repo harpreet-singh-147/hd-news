@@ -17,6 +17,7 @@ const Articles = () => {
   const [topicError, setTopicError] = useState(null);
   const [sortBy, setSortBy] = useState("");
   const [ordering, setOrdering] = useState("");
+  const [errorModal, setErrorModal] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -79,8 +80,14 @@ const Articles = () => {
       );
     }
   };
-  if (error || topicError)
-    return <Error error={error} topicError={topicError} />;
+  if (error)
+    return (
+      <Error
+        error={error}
+        errorModal={errorModal}
+        setErrorModal={setErrorModal}
+      />
+    );
   if (isLoading) return <Loading />;
   return (
     <>
@@ -120,7 +127,14 @@ const Articles = () => {
             </select>
           </div>
         </div>
-        <Topics topics={topics} />
+        {topicError ? (
+          <h2 className="text-center text-login-color">
+            ERROR {topicError.status}. Topic buttons are supposed to be here!
+          </h2>
+        ) : (
+          <Topics topics={topics} />
+        )}
+
         {articles.map(({ author, title, body, article_id, topic }) => {
           topic = topic.charAt(0).toUpperCase() + topic.slice(1);
           return (

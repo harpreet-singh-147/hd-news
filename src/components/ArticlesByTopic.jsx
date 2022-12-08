@@ -12,6 +12,7 @@ const ArticlesByTopic = () => {
   const [ordering, setOrdering] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [errorModal, setErrorModal] = useState(false);
   const { topic } = useParams();
 
   useEffect(() => {
@@ -58,7 +59,14 @@ const ArticlesByTopic = () => {
     }
   };
 
-  if (error) return <Error error={error} />;
+  if (error)
+    return (
+      <Error
+        error={error}
+        errorModal={errorModal}
+        setErrorModal={setErrorModal}
+      />
+    );
   if (isLoading) return <Loading />;
 
   return (
