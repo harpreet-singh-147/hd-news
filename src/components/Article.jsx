@@ -16,15 +16,19 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
   const [openModal, setOpenModal] = useState(false);
   const [voteErrorModal, setVoteErrorModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
+  const [requestingData, setRequestingData] = useState(false);
+  const [disableVote, setDisableVote] = useState(false);
   const { article_id } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
+    setRequestingData(true);
     fetchSingleArticle(article_id)
       .then(({ article }) => {
         setSingleArticle(article);
         setIsLoading(false);
         setError(null);
+        setRequestingData(false);
       })
       .catch(
         ({
@@ -34,66 +38,85 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
           },
         }) => {
           setError({ msg, status });
-
           setIsLoading(false);
+          setRequestingData(false);
         }
       );
   }, []);
 
   const voteButtonHandler = (vote) => {
-    if (singleArticle.voted !== vote) {
-      let modifyVoteBy;
-      if (
-        (singleArticle.voted === -1 && vote === 1) ||
-        (singleArticle.voted === 1 && vote === -1)
-      ) {
-        modifyVoteBy = vote * 2;
+    if (!disableVote) {
+      setDisableVote(true);
+      setTimeout(() => {
+        setDisableVote(false);
+      }, 150);
+
+      if (singleArticle.voted !== vote) {
+        let modifyVoteBy;
+        if (
+          (singleArticle.voted === -1 && vote === 1) ||
+          (singleArticle.voted === 1 && vote === -1)
+        ) {
+          modifyVoteBy = vote * 2;
+        } else {
+          modifyVoteBy = vote;
+        }
+
+        setSingleArticle({
+          ...singleArticle,
+          votes: singleArticle.votes + modifyVoteBy,
+        });
+        if (!requestingData) {
+          setRequestingData(true);
+          updateVotes(modifyVoteBy, singleArticle.article_id)
+            .then(({ updatedArticle }) => {
+              setSingleArticle({
+                ...singleArticle,
+                ...updatedArticle,
+                voted: vote,
+              });
+
+              setRequestingData(false);
+            })
+            .catch((err) => {
+              console.log("catch");
+              setSingleArticle({
+                ...singleArticle,
+                votes: singleArticle.votes,
+              });
+              setVoteErrorModal(true);
+              setRequestingData(false);
+            });
+        }
       } else {
-        modifyVoteBy = vote;
+        setSingleArticle({
+          ...singleArticle,
+          votes: singleArticle.votes - vote,
+          voted: singleArticle.voted - vote,
+        });
+
+        if (!requestingData) {
+          setRequestingData(true);
+          updateVotes(-vote, singleArticle.article_id)
+            .then(({ updatedArticle }) => {
+              setSingleArticle({
+                ...singleArticle,
+                ...updatedArticle,
+                voted: 0,
+              });
+              setRequestingData(false);
+            })
+            .catch((err) => {
+              setSingleArticle({
+                ...singleArticle,
+                votes: singleArticle.votes,
+              });
+
+              setVoteErrorModal(true);
+              setRequestingData(false);
+            });
+        }
       }
-
-      setSingleArticle({
-        ...singleArticle,
-        votes: singleArticle.votes + modifyVoteBy,
-      });
-
-      updateVotes(modifyVoteBy, singleArticle.article_id)
-        .then(({ updatedArticle }) => {
-          setSingleArticle({
-            ...singleArticle,
-            ...updatedArticle,
-            voted: vote,
-          });
-        })
-        .catch((err) => {
-          setSingleArticle({
-            ...singleArticle,
-            votes: singleArticle.votes,
-          });
-          setVoteErrorModal(true);
-        });
-    } else {
-      setSingleArticle({
-        ...singleArticle,
-        votes: singleArticle.votes - vote,
-        voted: singleArticle.voted - vote,
-      });
-
-      updateVotes(-vote, singleArticle.article_id)
-        .then(({ updatedArticle }) => {
-          setSingleArticle({
-            ...singleArticle,
-            ...updatedArticle,
-            voted: 0,
-          });
-        })
-        .catch((err) => {
-          setSingleArticle({
-            ...singleArticle,
-            votes: singleArticle.votes,
-          });
-          setVoteErrorModal(true);
-        });
     }
   };
 
@@ -160,7 +183,7 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
                 <button
                   aria-label="Up vote button"
                   className={
-                    singleArticle.voted === 1 ? "btn-dark active" : "btn-dark"
+                    singleArticle.voted === 1 ? "btn-vote active" : "btn-vote"
                   }
                   onClick={() => {
                     voteButtonHandler(1);
@@ -176,7 +199,7 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
                 <button
                   aria-label="Down vote button"
                   className={
-                    singleArticle.voted === -1 ? "btn-dark active" : "btn-dark"
+                    singleArticle.voted === -1 ? "btn-vote active" : "btn-vote"
                   }
                   onClick={() => {
                     voteButtonHandler(-1);

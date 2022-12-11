@@ -334,24 +334,32 @@ color: black;
 
 .btn-dark {
   margin: 0 5px;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   color: black;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   border: 1px solid black;
   border-radius: 5px;
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
   text-transform: uppercase;
-
 }
 
-.btn-dark.active {
+.btn-vote {
+  margin: 0 5px;
+  padding: 0.5em;
+  color: black;
+  background-color: #efefef;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.btn-vote.active {
   color: white;
   background-color: black;
   border: 1px solid black;
   font-weight: bold;
 }
 
-.btn-dark.active .arrow {
+.btn-vote.active .arrow {
   border: solid white;
   border-width: 0 3px 3px 0;
   display: block;
