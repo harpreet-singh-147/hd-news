@@ -20,6 +20,8 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
   const [disableVote, setDisableVote] = useState(false);
   const { article_id } = useParams();
 
+  console.log(singleArticle);
+
   useEffect(() => {
     setIsLoading(true);
     setRequestingData(true);
@@ -168,13 +170,15 @@ const Article = ({ loggedInUser, setLoggedInUser }) => {
 
         <article className="card">
           <h1>{singleArticle.title}</h1>
+          <p>
+            <strong>
+              Written by: {singleArticle.author},{" "}
+              {displayDate(singleArticle.created_at)}
+            </strong>
+          </p>
           <br />
           <p>{singleArticle.body}</p>
           <br />
-          <p>
-            Written by: <b>{singleArticle.author}</b>
-          </p>
-          <p>Posted on: {displayDate(singleArticle.created_at)}</p>
           {!loggedInUser ? <p>{singleArticle.votes} votes</p> : null}
           <p>{singleArticle.comment_count} Comments</p>
           {loggedInUser ? (

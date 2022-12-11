@@ -140,13 +140,14 @@ const Articles = () => {
           return (
             <article className="card" key={article_id}>
               <h1>{title}</h1>
-              <p className="truncate-content">{body}</p>
-
-              <Link to={`/articles/${article_id}`}>Read more</Link>
-              <p>Topic: {topic}</p>
               <p>
                 Written by: <b>{author}</b>
               </p>
+              <p>Topic: {topic}</p>
+              <br />
+              <p className="truncate-content">{body}</p>
+
+              <Link to={`/articles/${article_id}`}>Read more</Link>
             </article>
           );
         })}
