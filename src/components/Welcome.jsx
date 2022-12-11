@@ -55,7 +55,7 @@ const Welcome = ({ loggedInUser, setLoggedInUser }) => {
           Welcome to HD NEWS
         </h1>
       )}
-      <h1 className="text-center text-light header">Select your user</h1>
+      <h2 className="text-center text-light header">Select your user</h2>
 
       <div className="users-wrapper">
         {users.map(({ username, name, avatar_url }, index) => {
