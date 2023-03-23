@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const articlesApi = axios.create({
-  baseURL: `https://hd-news-be.cyclic.app/api`,
+  baseURL: `https://hd-news.onrender.com/api`,
 });
 
 export function fetchAllArticles() {
