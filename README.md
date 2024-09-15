@@ -6,7 +6,7 @@ HD News is a front end solo project that consolidates my understanding of making
 
 In this project, the aim is to create a user interface that utilises API calls such as GET, POST, PATCH and DELETE from the back-end which can be found here: https://github.com/harpreet-singh-147/BE-NC-News-Project.
 
-You can find the link to the hosted version of my back-end project here: https://hd-news-be.cyclic.app/api
+You can find the link to the hosted version of my back-end project here: https://hd-news.onrender.com/api/
 
 HD News is a social news aggregation, web content rating, and discussion website that contains articles which are divided into topics. Each article has user curated ratings and can be up or down voted using the API. Users can add comments about an article, delete their own comments, sort articles by votes, comments and date created in descending or ascending order.
 
